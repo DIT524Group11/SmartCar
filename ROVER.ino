@@ -5,7 +5,7 @@ Car car;
 SR04 ultrasonicSensor;
 const int TRIGGER_PIN = 6; //D6
 const int ECHO_PIN = 5; //D5
-int spd = 50;
+int spd = 50;       // Variable used to set speed
 int leftAngle = -90;
 int rightAngle = 90;
 
