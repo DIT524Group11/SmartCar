@@ -5,27 +5,41 @@ Car car;
 SR04 ultrasonicSensor;
 const int TRIGGER_PIN = 6; //D6
 const int ECHO_PIN = 5; //D5
-int spd = 50;       // Variable used to set speed
+int spd = 50;
 int leftAngle = -90;
 int rightAngle = 90;
 
+SR04 ultrasonicSensor2;
+const int PIN_1 = 10;
+const int PIN_2 = 9;
+
+bool forward = true;
 void setup() {
   Serial3.begin(9600);
   Serial3.setTimeout(200);
   car.begin();
 
   ultrasonicSensor.attach(TRIGGER_PIN, ECHO_PIN);
+  ultrasonicSensor2.attach(PIN_1, PIN_2);
 }
 
 void loop() {
- int dist = ultrasonicSensor.getDistance();
- if (dist > 0 && dist < 15){
-    car.setSpeed(0);
-        
-      
+  if(forward){
+   int dist = ultrasonicSensor.getDistance();
+   if (dist > 0 && dist < 22){
+      car.setSpeed(0);
+   }
   }
-  handleInput();
-}
+   else{
+    Serial.println(ultrasonicSensor.getDistance());
+   int dist = ultrasonicSensor2.getDistance();
+      if (dist > 0 && dist < 22){
+        car.setSpeed(0); 
+      }
+    }
+    handleInput();
+  }
+
 
 void handleInput() { //handle Serial3 input if there is any
   if (Serial3.available()) {
@@ -33,6 +47,7 @@ void handleInput() { //handle Serial3 input if there is any
     if (input.equals("m")) {
       car.setSpeed(spd);
       car.setAngle(0);
+      forward = true;
     }else if (input.equals("l")){
       
       car.setAngle(leftAngle);
@@ -42,10 +57,10 @@ void handleInput() { //handle Serial3 input if there is any
     }
     else if (input.equals("b")){
       car.setSpeed(0-spd); 
+      forward = false;
     }
     else if (input.equals("s")){
      car.setSpeed(0); 
     }
    }
   }
-
