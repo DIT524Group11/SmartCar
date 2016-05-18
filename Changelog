@@ -4,3 +4,4 @@ V. 0.2: Support for a second sensor added.
 V. 0.3: Sensor math updated to make sure individual anomalys don't cause the car to stop
 V. 0.4: The basic layout for the android application has been added and a minor bugfix. 
 Bug fixed: Two wheels stoped working when certain inputs were given.
+V. 0.5: Fixed issue where the car would stop responding when being told to reverse whilst moving forward.
